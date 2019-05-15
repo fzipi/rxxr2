@@ -124,6 +124,7 @@ let batch_scan fname zlim =
       Printf.printf "= [%d] =\n" !c_total;
       Printf.printf "INPUT: %s\n" s;
       Printf.printf "PARSE: ERROR {%s}\n%!" (Printexc.to_string e);
+      c_parsed := !c_parsed + 1;
       scan ()
     |RegexScanner.Regex (nfa, s) ->
       c_total := !c_total + 1;
