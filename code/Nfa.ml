@@ -200,9 +200,9 @@ let rec compile r sv pv next kont flags = match (fst r) with
 let make (r, flags) =
   let _ = decorate_regex r flags in 
   let state_count = (snd r).scount + 1 in (* + 1 for the final state *)
-  let sv = Array.create state_count End in
-  let tv = Array.create state_count None in
-  let pv = Array.create state_count (r_epos r, r_epos r) in
+  let sv = Array.make state_count End in
+  let tv = Array.make state_count None in
+  let pv = Array.make state_count (r_epos r, r_epos r) in
   let (_, kont) = compile r sv pv (state_count - 2) (state_count - 1) flags in
   {states = sv; transitions = tv; positions = pv; root = kont};;
 

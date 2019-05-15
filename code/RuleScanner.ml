@@ -17,17 +17,17 @@ let rec next_rules_file file_stack = match file_stack with
     else next_rules_file t;;
 
 let make_line_reader fname =
-  let in_channel = open_in fname in
+  let in_channel = Scanf.Scanning.open_in fname in
   let closed = ref false in
   let next_line = fun () ->
     if !closed then
       None
     else
       try
-        Some (Scanf.fscanf in_channel "%[^\r\n]\n" (fun x -> x))
+        Some (Scanf.bscanf in_channel "%[^\r\n]\n" (fun x -> x))
       with
         End_of_file ->
-          let _ = close_in_noerr in_channel in
+          let _ = Scanf.Scanning.close_in in_channel in
           let _ = closed := true in
           None in
   next_line;;

@@ -9,17 +9,17 @@ type t = unit -> result;;
 
 (* initialize a line-by-line reader on the input file *)
 let make_line_reader fname =
-  let in_channel = open_in fname in
+  let in_channel = Scanf.Scanning.open_in fname in
   let closed = ref false in
   fun () ->
     if !closed then
       None
     else
       try
-        Some (Scanf.fscanf in_channel "%[^\r\n]\n" (fun x -> x))
+        Some (Scanf.bscanf in_channel "%[^\r\n]\n" (fun x -> x))
       with
         End_of_file ->
-          close_in_noerr in_channel;
+          Scanf.Scanning.close_in in_channel;
           closed := true;
           None;;
 

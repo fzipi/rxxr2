@@ -8,8 +8,8 @@ let zprev u = if u <= zmin then zmin else Char.chr (Char.code u - 1);;
 let znext u = if u >= zmax then zmax else Char.chr (Char.code u + 1);;
 
 let chr_ignore_case c =
-  let c_up = Char.uppercase c in
-  let c_low = Char.lowercase c in
+  let c_up = Char.uppercase_ascii c in
+  let c_low = Char.lowercase_ascii c in
   if c_up != c then
     [(c_up, c_up); (c, c)]
   else if c_low != c then
@@ -23,8 +23,8 @@ let cls_ignore_case cls =
   let rec ignore_case cls tr = match cls with
     [] -> ctr_positive tr
     |(u, v) :: t ->
-      let tr = if max u la <= min v lz then ctr_add tr (Char.uppercase (max u la)) (Char.uppercase (min v lz)) else tr in
-      let tr = if max u ua <= min v uz then ctr_add tr (Char.lowercase (max u ua)) (Char.lowercase (min v uz)) else tr in
+      let tr = if max u la <= min v lz then ctr_add tr (Char.uppercase_ascii (max u la)) (Char.uppercase_ascii (min v lz)) else tr in
+      let tr = if max u ua <= min v uz then ctr_add tr (Char.lowercase_ascii (max u ua)) (Char.lowercase_ascii (min v uz)) else tr in
       ignore_case t (ctr_add tr u v) in
   ignore_case cls CTNull;;
 
